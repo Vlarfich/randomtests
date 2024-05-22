@@ -35,7 +35,13 @@ public class DiscreteFourierTest {
         Bits b = new StringBits("1100100100001111110110101010001000100001011010001100001000110100110001001100011001100010100010111000");
         Assert.assertEquals(100, b.getLength());
         DiscreteFourierTransform dft = new DiscreteFourierTransform();
+
+        long startTime = System.currentTimeMillis();
         Result[] results = dft.runTest(b);
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println(this.getClass().getSimpleName() + " time for " + b.getLength() +
+                " bits: " +timeElapsed + " ms");
         dft.report(System.out, results);
         
         Assert.assertEquals(0.646355, results[0].getPValue(), 0.000001);

@@ -11,6 +11,7 @@ import junit.framework.Assert;
 import net.stamfest.randomtests.bits.Bits;
 import net.stamfest.randomtests.nist.RandomExcursionsVariant;
 import net.stamfest.randomtests.nist.RandomExcursionsVariant.RandomExcursionsVariantResult;
+import net.stamfest.randomtests.nist.Result;
 import net.stamfest.randomtests.utils.IO;
 import org.junit.Test;
 
@@ -53,7 +54,13 @@ public class RandomExcursionsVariantTest {
         Bits bits = IO.readAscii(RandomExcursionsVariantTest.class.getResourceAsStream("/data.e"), 1000000);
 
         RandomExcursionsVariant re = new RandomExcursionsVariant();
+        long startTime = System.currentTimeMillis();
         RandomExcursionsVariantResult[] results = (RandomExcursionsVariantResult[]) re.runTest(bits);
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println(this.getClass().getSimpleName() + " time for " + bits.getLength() +
+                " bits: " +timeElapsed + " ms");
+
         re.report(System.out, results);
        
         Assert.assertEquals("-9", 0.858946, results[0].getPValue(), 0.000001);

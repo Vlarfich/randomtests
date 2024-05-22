@@ -36,7 +36,13 @@ public class BlockFrequencyTest {
 
         BlockFrequency f = new BlockFrequency(3);
 
+
+        long startTime = System.currentTimeMillis();
         Result[] results = f.runTest(bits);
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println(this.getClass().getSimpleName() + " time for " + bits.getLength() * 8 +
+                " bits: " +timeElapsed + " ms");
         f.report(System.out, results);
 
         Assert.assertEquals(0.801252, results[0].getPValue(), 0.00001);

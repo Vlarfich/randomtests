@@ -29,6 +29,38 @@ import org.junit.Test;
  * @author Peter Stamfest
  */
 public class SuiteTest {
+
+    @Test
+    public void QRNG() throws IOException {
+        InputStream is = SuiteTest.class.getResourceAsStream("/qrbg-1M.bin");
+
+        long startTime;
+        long endTime;
+        long timeElapsed = 0;
+        startTime = System.currentTimeMillis();
+        ParallelSuiteExecutor s = ParallelSuiteExecutor.getStandardParallelTestSuite(null);
+
+
+        for (int i = 0; i < 100; i++) {
+            Bits bits = IO.readBinary(is, 500000);
+            startTime = System.currentTimeMillis();
+            s.runSuite(bits);
+            endTime = System.currentTimeMillis();
+            timeElapsed += (endTime - startTime);
+            //System.out.println("Ellapsed time: " + timeElapsed);
+        }
+
+        // need to wait for final results...
+        s.await();
+
+        //timeElapsed = endTime - startTime;
+        System.out.println("Ellapsed time: " + timeElapsed);
+        PrintWriter out = new PrintWriter(System.out);
+        s.report(out);
+        out.flush();
+    }
+
+
     @Test
     public void BBS() throws IOException {
         InputStream is = SuiteTest.class.getResourceAsStream("/BBS.dat");
@@ -57,16 +89,29 @@ public class SuiteTest {
     public void parallelBBS() throws IOException {
         InputStream is = SuiteTest.class.getResourceAsStream("/BBS.dat");
 
+        long startTime;
+        long endTime;
+        long timeElapsed;
+        startTime = System.currentTimeMillis();
         ParallelSuiteExecutor s = ParallelSuiteExecutor.getStandardParallelTestSuite(null);
+
 
         for (int i = 0; i < 100; i++) {
             Bits bits = IO.readBinary(is, 500000);
+            //startTime = System.currentTimeMillis();
             s.runSuite(bits);
+            //endTime = System.currentTimeMillis();
+            //timeElapsed = endTime - startTime;
+            //System.out.println("Ellapsed time: " + timeElapsed);
         }
         
         // need to wait for final results...
         s.await();
-        
+
+        endTime = System.currentTimeMillis();
+        timeElapsed = endTime - startTime;
+        System.out.println("Ellapsed time: " + timeElapsed);
+
         InputStream resultsInputStream = SuiteTest.class.getResourceAsStream("/BBS-test-results");
         
         Iterator<List<String>> iterator = parseFile(resultsInputStream);

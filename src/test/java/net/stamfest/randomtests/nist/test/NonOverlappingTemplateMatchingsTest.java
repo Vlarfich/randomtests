@@ -24,7 +24,13 @@ public class NonOverlappingTemplateMatchingsTest {
     public void test() throws IOException {
         Bits bits = IO.readAscii(NonOverlappingTemplateMatchingsTest.class.getResourceAsStream("/data.e"), 100000);
         NonOverlappingTemplateMatchings n = new NonOverlappingTemplateMatchings(9);
+
+        long startTime = System.currentTimeMillis();
         Result[] results = n.runTest(bits);
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println(this.getClass().getSimpleName() + " time for " + bits.getLength() +
+                " bits: " +timeElapsed + " ms");
         n.report(System.out, results);
         
         /* these values were obtained from the original NIST suite for data.e */

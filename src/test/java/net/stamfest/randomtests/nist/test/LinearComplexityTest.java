@@ -31,7 +31,13 @@ public class LinearComplexityTest {
     public void example2_10_8() throws IOException {
         Bits bits = IO.readAscii(LinearComplexityTest.class.getResourceAsStream("/data.e"), 1000000);
         LinearComplexity lc = new LinearComplexity(1000);
+
+        long startTime = System.currentTimeMillis();
         Result[] results = lc.runTest(bits);
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println(this.getClass().getSimpleName() + " time for " + bits.getLength() +
+                " bits: " +timeElapsed + " ms");
         lc.report(System.out, results);
 
         Assert.assertEquals(1, results.length);

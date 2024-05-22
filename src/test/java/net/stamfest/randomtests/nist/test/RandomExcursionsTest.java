@@ -68,7 +68,13 @@ SUCCESS         x =  4 chi^2 =  2.488767 p_value = 0.778186
         Bits bits = IO.readAscii(RandomExcursionsTest.class.getResourceAsStream("/data.e"), 1000000);
 
         RandomExcursions re = new RandomExcursions();
+        long startTime = System.currentTimeMillis();
         Result[] results = re.runTest(bits);
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println(this.getClass().getSimpleName() + " time for " + bits.getLength() +
+                " bits: " +timeElapsed + " ms");
+
         re.report(System.out, results);
 
         RandomExcursionsResult r;

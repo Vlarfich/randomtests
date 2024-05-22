@@ -34,7 +34,13 @@ public class CumulativeSumsTest {
     public void example2_13_8() {
         StringBits bits = new StringBits("1100100100001111110110101010001000100001011010001100001000110100110001001100011001100010100010111000");
         CumulativeSums cs = new CumulativeSums();
+
+        long startTime = System.currentTimeMillis();
         Result[] results = cs.runTest(bits);
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println(this.getClass().getSimpleName() + " time for " + bits.getLength() +
+                " bits: " +timeElapsed + " ms");
         cs.report(System.out, results);
 
         Assert.assertEquals("forward", 0.219194, results[0].getPValue(), 0.000001);

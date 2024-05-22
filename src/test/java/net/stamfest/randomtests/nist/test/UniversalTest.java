@@ -23,7 +23,14 @@ public class UniversalTest {
     public void x() throws IOException {
         Bits bits = IO.readAscii(UniversalTest.class.getResourceAsStream("/data.e"), 500000);
         Universal u = new Universal();
+
+        long startTime = System.currentTimeMillis();
         Result[] results = u.runTest(bits);
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println(this.getClass().getSimpleName() + " time for " + bits.getLength() +
+                " bits: " +timeElapsed + " ms");
+
         u.report(System.out, results);
         
         

@@ -22,7 +22,13 @@ public class OverlappingTemplateMatchingTest {
     public void example2_8_8() throws IOException {
         Bits bits = IO.readAscii(OverlappingTemplateMatchingTest.class.getResourceAsStream("/data.e"), 1000000);
         OverlappingTemplateMatching o = new OverlappingTemplateMatching(9);
+
+        long startTime = System.currentTimeMillis();
         Result[] results = o.runTest(bits);
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println(this.getClass().getSimpleName() + " time for " + bits.getLength() +
+                " bits: " +timeElapsed + " ms");
         o.report(System.out, results);
 
         Assert.assertEquals(0.110434, results[0].getPValue(), 0.000001);

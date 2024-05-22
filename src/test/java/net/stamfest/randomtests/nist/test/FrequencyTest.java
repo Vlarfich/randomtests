@@ -21,7 +21,13 @@ import org.junit.Test;
         ArrayBits fifty_fifty = new ArrayBits(new byte[]{ (byte) 85, (byte) 170, (byte) 85, (byte) 153, (byte) 195, (byte) 60 });
 
         Frequency f = new Frequency();
+
+        long startTime = System.currentTimeMillis();
         Result[] results = f.runTest(fifty_fifty);
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println(this.getClass().getSimpleName() + " time for " + fifty_fifty.getLength() * 8 +
+                " bits: " +timeElapsed + " ms");
         f.report(System.out, results);
         Assert.assertTrue(results[0].isPassed());
     }

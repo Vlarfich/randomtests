@@ -24,7 +24,12 @@ public class RunsTest {
 
         Runs r = new Runs();
 
+        long startTime = System.currentTimeMillis();
         Result[] results = r.runTest(bits);
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println(this.getClass().getSimpleName() + " time for " + bits.getLength() +
+                " bits: " +timeElapsed + " ms");
         r.report(System.out, results);
 
         Assert.assertEquals(0.147232, results[0].getPValue(), 0.000001);

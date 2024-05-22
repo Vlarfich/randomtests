@@ -21,7 +21,13 @@ public class LongestRunOfOnesTest {
     public void one() {
         StringBits bits = new StringBits("11001100000101010110110001001100111000000000001001001101010100010001001111010110100000001101011111001100111001101101100010110010");
         LongestRunOfOnes l = new LongestRunOfOnes();
+        long startTime = System.currentTimeMillis();
         Result[] results = l.runTest(bits);
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println(this.getClass().getSimpleName() + " time for " + bits.getLength() +
+                " bits: " +timeElapsed + " ms");
+
         l.report(System.out, results);
         
         Assert.assertEquals(0.180609, results[0].getPValue(), 0.000001);

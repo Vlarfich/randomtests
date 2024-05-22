@@ -24,7 +24,13 @@ public class RankTest {
         Bits b = IO.readAscii(RankTest.class.getResourceAsStream("/data.e"), 100000);
         
         Rank r = new Rank();
+        long startTime = System.currentTimeMillis();
         Result[] results = r.runTest(b);
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println(this.getClass().getSimpleName() + " time for " + b.getLength() +
+                " bits: " +timeElapsed + " ms");
+
         r.report(System.out, results);
         
         Assert.assertEquals(0.532069, results[0].getPValue(), 0.00001);

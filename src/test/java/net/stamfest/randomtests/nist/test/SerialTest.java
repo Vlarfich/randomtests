@@ -30,7 +30,13 @@ public class SerialTest {
     public void example() throws IOException {
         Bits bits = IO.readAscii(SerialTest.class.getResourceAsStream("/data.e"), 1000000);
         Serial s = new Serial(2);
+
+        long startTime = System.currentTimeMillis();
         Result[] results = s.runTest(bits);
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println(this.getClass().getSimpleName() + " time for " + bits.getLength() +
+                " bits: " +timeElapsed + " ms");
         s.report(System.out, results);
         
         Result s1 = results[0];
