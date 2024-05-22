@@ -16,7 +16,7 @@ import org.apache.commons.math3.special.Gamma;
  * range. After all updates are executed, the corresponding pass count is the
  * number of times the update value has exceeded the pass value.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class Histogram {
 

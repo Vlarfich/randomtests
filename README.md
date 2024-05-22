@@ -160,5 +160,5 @@ For licensing information see the file license.txt
 Author
 ------
 
-This software was written by Peter Stamfest (peter -AT- stamfest.at) and is
+This software was written by Vlad Zhuravlev (peter -AT- stamfest.at) and is
 based in parts on software by NIST.

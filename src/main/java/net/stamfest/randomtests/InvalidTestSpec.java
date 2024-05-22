@@ -8,7 +8,7 @@ package net.stamfest.randomtests;
  * An exception transporting information about problems with the textual
  * representation as defined in the {@link TestFactory} class.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class InvalidTestSpec extends Exception {
     public InvalidTestSpec(String message) {

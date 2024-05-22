@@ -15,7 +15,7 @@ import net.stamfest.randomtests.nist.Result;
  * array) corresponds to the test at the same index within the list of tests of
  * the test Suite.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public interface SuiteResult {
 

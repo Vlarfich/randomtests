@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * (c) 1999 by the National Institute Of Standards & Technology
  * 
  * This is copyrighted code.  All rights reserved.
@@ -20,7 +20,7 @@ import org.apache.commons.math3.special.Erf;
  * expected for a random sequence. In particular, this test determines whether
  * the oscillation between such zeros and ones is too fast or too slow.
  *
- * @author Peter Stamfest
+ * @author Vlad zhuravlev
  */
 public class Runs extends AbstractNistTest {
 

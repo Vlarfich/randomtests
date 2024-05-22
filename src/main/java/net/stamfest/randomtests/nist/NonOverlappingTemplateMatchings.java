@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * (c) 1999 by the National Institute Of Standards & Technology
  * 
  * This is copyrighted code.  All rights reserved.
@@ -23,7 +23,7 @@ import org.apache.commons.math3.special.Gamma;
  * found, the window slides one bit position. If the pattern is found, the
  * window is reset to the bit after the found pattern, and the search resumes.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class NonOverlappingTemplateMatchings extends AbstractNistTest {
     static final int N = 8;

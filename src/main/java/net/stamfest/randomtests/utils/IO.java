@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * 
  * This is copyrighted code.  All rights reserved.
  * Please see the file license.txt for details.
@@ -17,7 +17,7 @@ import net.stamfest.randomtests.bits.Bits;
  * Support for reading bit sequences from an input stream. Either binary data (8
  * bits per byte) or ASCII based data can be read.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class IO {
 

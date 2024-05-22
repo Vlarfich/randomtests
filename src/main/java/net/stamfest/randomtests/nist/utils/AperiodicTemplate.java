@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * (c) 1999 by the National Institute Of Standards & Technology
  * 
  * This is copyrighted code.  All rights reserved.
@@ -21,7 +21,7 @@ import java.util.Iterator;
  * This class has been checked to produce data identical for all bit lengths
  * from 2 to 21 as distributed with the original NIST code.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class AperiodicTemplate implements Iterable<Long> {
 

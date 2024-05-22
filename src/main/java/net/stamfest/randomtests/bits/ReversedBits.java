@@ -13,7 +13,7 @@ package net.stamfest.randomtests.bits;
  * }
  * </pre>
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public final class ReversedBits extends AbstractBaseBits {
 

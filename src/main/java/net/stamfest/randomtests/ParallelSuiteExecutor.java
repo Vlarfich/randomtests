@@ -25,7 +25,7 @@ import net.stamfest.randomtests.utils.Histogram;
  * of such a thread pool allows to use all available processing cores of most
  * modern computers.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class ParallelSuiteExecutor extends Suite {
 

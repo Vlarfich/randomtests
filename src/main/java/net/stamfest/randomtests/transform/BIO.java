@@ -15,7 +15,7 @@ import net.stamfest.randomtests.utils.IO;
 
 /**
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class BIO {
     public enum Format { ascii, binary };

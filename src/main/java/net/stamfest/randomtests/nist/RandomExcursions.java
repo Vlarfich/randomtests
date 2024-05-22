@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * (c) 1999 by the National Institute Of Standards & Technology
  * 
  * This is copyrighted code.  All rights reserved.
@@ -24,7 +24,7 @@ import org.apache.commons.math3.special.Gamma;
  * one test and conclusion for each of the states: -4, -3, -2, -1 and +1, +2,
  * +3, +4.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class RandomExcursions extends AbstractNistTest {
     private final int stateX[] = { -4, -3, -2, -1, 1, 2, 3, 4 };

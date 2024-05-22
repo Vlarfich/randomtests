@@ -9,7 +9,7 @@ import net.stamfest.randomtests.nist.NistTest;
 /**
  * The service provider for the standard NIST tests.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class StandardNistTestLookupServiceProvider implements NistTestLookupServiceProvider {
 

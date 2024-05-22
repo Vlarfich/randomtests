@@ -1,5 +1,5 @@
 /*
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * 
  * All rights reserved. Redistribution in any form (source or
  * compiled) prohibited.
@@ -18,7 +18,7 @@ import net.stamfest.randomtests.utils.IO;
 
 /**
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class TestRandom {
 

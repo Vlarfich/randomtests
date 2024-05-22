@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * 
  * This is copyrighted code.  All rights reserved.
  * Please see the file license.txt for details.
@@ -9,7 +9,7 @@ package net.stamfest.randomtests.bits;
 /**
  * An explicit Permutation backed by an integer array.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class ExplicitPermutation implements Permutation {
 

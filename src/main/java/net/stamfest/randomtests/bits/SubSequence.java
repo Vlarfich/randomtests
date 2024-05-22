@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * 
  * This is copyrighted code.  All rights reserved.
  * Please see the file license.txt for details.
@@ -14,7 +14,7 @@ package net.stamfest.randomtests.bits;
  * (index 0) of the new sequence. Subsequent bits are defined by using every
  * step-size-th bit from the base sequence for a total of length bit.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class SubSequence extends AbstractBaseBits {
 

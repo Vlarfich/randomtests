@@ -23,7 +23,7 @@ import net.stamfest.randomtests.nist.NistTest;
  * Optionally, the class name may be followed by a list of arguments within
  * parentheses. The argument list will be passed to the matchings constructor.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class TestFactory {
 

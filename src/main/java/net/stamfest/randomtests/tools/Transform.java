@@ -27,7 +27,7 @@ import org.kohsuke.args4j.ParserProperties;
 
 /**
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class Transform {
 

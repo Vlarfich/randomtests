@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * 
  * This is copyrighted code.  All rights reserved.
  * Please see the file license.txt for details.
@@ -15,7 +15,7 @@ import java.util.Arrays;
  * length cannot.
  *
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class MutableArrayBits extends ArrayBits {
 

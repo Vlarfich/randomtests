@@ -15,7 +15,7 @@ import java.util.Iterator;
  * when using such methods through at least the nashorn JavaScript engine
  * bundles with Oracle java 8.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 @SuppressWarnings("EqualsAndHashcode")
 public abstract class AbstractBaseBits implements Bits {

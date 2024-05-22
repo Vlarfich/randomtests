@@ -28,7 +28,7 @@ import java.math.BigInteger;
  * }
  * </pre>
  * 
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class BigIntegerBits extends AbstractBaseBits {
 

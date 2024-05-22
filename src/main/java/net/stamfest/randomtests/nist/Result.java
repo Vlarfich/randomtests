@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * (c) 1999 by the National Institute Of Standards & Technology
  * 
  * This is copyrighted code.  All rights reserved.
@@ -15,7 +15,7 @@ import net.stamfest.randomtests.Suite;
  * compatible with the hypothesis of purely random input data. This value should
  * always be within the range [0..1]
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class Result {
     private double pValue;

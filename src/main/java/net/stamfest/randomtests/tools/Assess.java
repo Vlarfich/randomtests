@@ -55,7 +55,7 @@ import org.kohsuke.args4j.ParserProperties;
  * sequences to assess the randomness of those sequences. It is roughly based on
  * the assess tool from the NIST source distribution.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class Assess {
     enum Format { ascii, binary };

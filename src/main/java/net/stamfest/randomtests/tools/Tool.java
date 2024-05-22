@@ -10,7 +10,7 @@ import java.util.Enumeration;
 
 /**
  * A tool manager class for the jar packaging
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class Tool {
     public static void main(String argv[]) {

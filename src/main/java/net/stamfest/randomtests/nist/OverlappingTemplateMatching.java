@@ -21,7 +21,7 @@ import org.apache.commons.math3.special.Gamma;
  * NOTE: The implementation ported from the original NIST code only implements a
  * single pattern for this test, namely the all-one-bit pattern.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class OverlappingTemplateMatching extends AbstractNistTest {
 

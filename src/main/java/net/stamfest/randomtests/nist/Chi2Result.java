@@ -7,7 +7,7 @@ package net.stamfest.randomtests.nist;
 /**
  * A Result to hold a chi-square based result.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class Chi2Result extends Result {
     private double chi2;

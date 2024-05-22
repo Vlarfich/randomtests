@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * (c) 1999 by the National Institute Of Standards & Technology
  * 
  * This is copyrighted code.  All rights reserved.
@@ -19,7 +19,7 @@ import org.apache.commons.math3.special.Erf;
  * ones to ½ , that is, the number of ones and zeroes in a sequence should be
  * about the same. All subsequent tests depend on the passing of this test.
  *
- * @author NIST / ported by Peter Stamfest
+ * @author NIST / ported by Vlad Zhuravlev
  */
 public class Frequency extends AbstractNistTest {
     public static class FrequencyResult extends Result {

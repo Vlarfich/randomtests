@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * (c) 1999 by the National Institute Of Standards & Technology
  * 
  * This is copyrighted code.  All rights reserved.
@@ -18,7 +18,7 @@ import org.apache.commons.math3.special.Erf;
  * compressed without loss of information. A significantly compressible sequence
  * is considered to be non-random.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class Universal extends AbstractNistTest {
     public static class UniversalResult extends Result {

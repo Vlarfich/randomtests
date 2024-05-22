@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * (c) 1999 by the National Institute Of Standards & Technology
  * 
  * This is copyrighted code.  All rights reserved.
@@ -19,7 +19,7 @@ import org.apache.commons.math3.special.Gamma;
  * randomness. For block size M =1, this test degenerates to the
  * {@link Frequency} (Monobit) test.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class BlockFrequency extends AbstractNistTest {
     public static class BlockFrequencyResult extends Chi2Result {

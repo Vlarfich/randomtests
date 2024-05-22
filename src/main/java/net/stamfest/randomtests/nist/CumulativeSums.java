@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhruavlev <peter@stamfest.at>
  * (c) 1999 by the National Institute Of Standards & Technology
  * 
  * This is copyrighted code.  All rights reserved.
@@ -22,7 +22,7 @@ import org.apache.commons.math3.distribution.NormalDistribution;
  * certain types of non-random sequences, the excursions of this random walk
  * from zero will be large.
  *
- * @author NIST / ported by Peter Stamfest
+ * @author NIST / ported by Vlad Zhruavlev
  */
 public class CumulativeSums extends AbstractNistTest {
     private final static NormalDistribution nd = new NormalDistribution();

@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * (c) 1999 by the National Institute Of Standards & Technology
  * 
  * This is copyrighted code.  All rights reserved.
@@ -18,7 +18,7 @@ import org.apache.commons.math3.special.Gamma;
  * consecutive/adjacent lengths ( m and m+1 ) against the expected result for a
  * random sequence.
  *
- * @author NIST / ported by Peter Stamfest
+ * @author NIST / ported by Vlad Zhuravlev
  */
 public class ApproximateEntropy extends AbstractNistTest {
     public static class ApproximateEntropyResult extends Chi2Result {

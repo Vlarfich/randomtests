@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * (c) 1999 by the National Institute Of Standards & Technology
  * 
  * This is copyrighted code.  All rights reserved.
@@ -19,7 +19,7 @@ import org.apache.commons.math3.special.Gamma;
  * is complex enough to be considered random. Random sequences are characterized
  * by longer LFSRs. An LFSR that is too short implies non-randomness.
  *
- * @author NIST / ported by Peter Stamfest
+ * @author NIST / ported by Vlad Zhuravlev
  */
 public class LinearComplexity extends AbstractNistTest {
     public static class LinearComplexityResult extends Chi2Result {

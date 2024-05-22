@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * 
  * This is copyrighted code.  All rights reserved.
  * Please see the file license.txt for details.
@@ -28,7 +28,7 @@ package net.stamfest.randomtests.bits;
  *
  * will print "0 1 0 0 1 0 0 1 1 0 1 0 0 0 1"
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class ArrayBits extends AbstractBaseBits {
 

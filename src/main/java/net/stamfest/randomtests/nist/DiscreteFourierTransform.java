@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * (c) 1999 by the National Institute Of Standards & Technology
  * 
  * This is copyrighted code.  All rights reserved.
@@ -20,7 +20,7 @@ import org.jtransforms.fft.DoubleFFT_1D;
  * intention is to detect whether the number of peaks exceeding the 95 %
  * threshold is significantly different than 5 %.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class DiscreteFourierTransform extends AbstractNistTest {
     public static class DiscreteFourierTransformResult extends Result {

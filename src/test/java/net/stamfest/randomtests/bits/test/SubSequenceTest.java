@@ -12,7 +12,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class SubSequenceTest {
 

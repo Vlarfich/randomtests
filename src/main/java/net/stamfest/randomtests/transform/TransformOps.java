@@ -11,7 +11,7 @@ import net.stamfest.randomtests.bits.SubSequence;
 import net.stamfest.randomtests.bits.XORBits;
 
 /**
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public class TransformOps {
 

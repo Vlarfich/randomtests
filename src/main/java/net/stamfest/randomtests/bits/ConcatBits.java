@@ -7,7 +7,7 @@ package net.stamfest.randomtests.bits;
 /**
  * Concatenates multiple bit sequences into a new sequence.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public final class ConcatBits extends AbstractBaseBits {
 

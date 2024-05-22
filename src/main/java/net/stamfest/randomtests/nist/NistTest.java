@@ -1,5 +1,5 @@
 /* 
- * (c) 2016 by Peter Stamfest <peter@stamfest.at>
+ * (c) 2016 by Vlad Zhuravlev <peter@stamfest.at>
  * (c) 1999 by the National Institute Of Standards & Technology
  * 
  * This is copyrighted code.  All rights reserved.
@@ -22,7 +22,7 @@ import net.stamfest.randomtests.bits.Bits;
  * combine many tests to assess if the process to generate the bit streams is
  * "random" or not (@see {@link Suite}).
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public interface NistTest {
 

@@ -18,7 +18,7 @@ package net.stamfest.randomtests.bits;
  * Given the base sequence 100101101 and the second sequence 10 the resulting
  * sequence will be 001111000.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public final class XORBits extends AbstractBaseBits {
     private Bits base;

@@ -17,7 +17,7 @@ import net.stamfest.randomtests.nist.NistTest;
  * providers to look up the test name through the lookup method of the provider.
  * The first found implementation will be uses.
  *
- * @author Peter Stamfest
+ * @author Vlad Zhuravlev
  */
 public interface NistTestLookupServiceProvider {
 
