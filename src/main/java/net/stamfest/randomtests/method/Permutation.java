@@ -15,6 +15,11 @@ import java.util.*;
 public class Permutation {
 
     private static class S {
+
+        private static int nextId = 0;
+
+        int id;
+
         int compRes;         // 1
         int runsRes1;        // 1
         int runsRes2;        // 1
@@ -26,11 +31,12 @@ public class Permutation {
         int colisRes1;       // 1
         int colisRes2;       // 1
 
-        //                     10
+        //                 J = 10
 
 
         public S(int compRes, int runsRes1, int runsRes2, double derRes, int runsTrendRes1, int runsTrendRes2,
                  int runsTrendRes3, double covRes, int colisRes1, int colisRes2) {
+            this.id = nextId++;
             this.compRes = compRes;
             this.runsRes1 = runsRes1;
             this.runsRes2 = runsRes2;
@@ -41,6 +47,23 @@ public class Permutation {
             this.covRes = covRes;
             this.colisRes1 = colisRes1;
             this.colisRes2 = colisRes2;
+        }
+
+        @Override
+        public String toString() {
+            return "S{" +
+                    "id=" + id +
+                    ", compRes=" + compRes +
+                    ", runsRes1=" + runsRes1 +
+                    ", runsRes2=" + runsRes2 +
+                    ", derRes=" + derRes +
+                    ", runsTrendRes1=" + runsTrendRes1 +
+                    ", runsTrendRes2=" + runsTrendRes2 +
+                    ", runsTrendRes3=" + runsTrendRes3 +
+                    ", covRes=" + covRes +
+                    ", colisRes1=" + colisRes1 +
+                    ", colisRes2=" + colisRes2 +
+                    '}';
         }
     }
 
@@ -72,6 +95,8 @@ public class Permutation {
         int[] colisRes;
         S temp;
 
+        int[] s0IDs = new int[10];
+
         for (int i = 0; i < 10; i++) {
             ArrayList<Integer> newSeq = new ArrayList<>();
             for (int j = (int) (i * N / 10); j < (i + 1) * N / 10; j++) {
@@ -88,6 +113,7 @@ public class Permutation {
                     covRes, colisRes[0], colisRes[1]);
 
             Sij[i][0] = temp;
+            s0IDs[i] = temp.id;
 
             for(int j = 1; j <= 1000; j++) {
                 fisherYates(newSeq);
@@ -104,10 +130,17 @@ public class Permutation {
             }
         }
 
+        for(int i = 0; i < s0IDs.length; i++) {
+            System.out.println(s0IDs[i]);
+        }
+
         int[][] R = new int[10][10];
 
         for(int i = 0; i < 10; i++) {
 
+            ArrayList<S> Si = new ArrayList<>(List.of(Arrays.copyOf(Sij[i], 1001)));
+            System.out.println(Si.get(0).toString());
+            System.out.println(Si.get(Si.size() - 1).toString());
         }
 
 
