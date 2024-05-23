@@ -3,13 +3,11 @@ package net.stamfest.randomtests.method;
 import net.stamfest.randomtests.bits.Bits;
 import net.stamfest.randomtests.utils.IO;
 import org.apache.commons.math3.distribution.ChiSquaredDistribution;
-import org.apache.commons.math3.special.Erf;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.stream.Stream;
 
 public class Independence {
     public static boolean run(Bits bits) {
@@ -89,7 +87,7 @@ public class Independence {
         }
         System.out.println("ХИ квадрат = " + chi2 + ", пороговое значение = " + chiSquaredValue);
 
-        System.out.println("P-values:");
+        System.out.println("  k            P-values:");
         for(int i = 0; i < pvalues.size(); i++) {
             System.out.println("k = " + (i +2) + "\t: " +pvalues.get(i));
         }
@@ -110,7 +108,24 @@ public class Independence {
         Bits bits = IO.readAscii(Objects.requireNonNull(
                 Files.newInputStream(Path.of("data.e"))), 1000000);
 
+
+        long startTime = System.currentTimeMillis();
         run(bits);
+        long endTime = System.currentTimeMillis();
+        long timeElapsed = endTime - startTime;
+        System.out.println("Время выполнения Хи-квадрат теста проверки независимости: \t\t\t\t"
+                + timeElapsed + " ms");
+
+        System.out.println();
+        System.out.println();
+
+        startTime = System.currentTimeMillis();
+        SameDistributionTest.runSameDistributionTest(bits);
+        endTime = System.currentTimeMillis();
+        timeElapsed = endTime - startTime;
+        System.out.println("Время выполнения Хи-квадрат теста проверки одинаковой распределённости:\t"
+                + timeElapsed + " ms");
+
 
     }
 }

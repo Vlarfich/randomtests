@@ -10,9 +10,12 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 import net.stamfest.randomtests.ParallelSuiteExecutor;
@@ -77,7 +80,84 @@ public class SuiteTest {
         out.flush();
 
     }
-    
+
+    @Test
+    public void e() throws IOException {
+        InputStream is = SuiteTest.class.getResourceAsStream("data.e");
+
+        Suite s = Suite.getStandardTestSuite(null);
+
+        for (int i = 0; i < 100; i++) {
+            Bits bits = IO.readAscii(Objects.requireNonNull(
+                    Files.newInputStream(Path.of("data.e"))), 1000000);
+            s.runSuite(bits);
+        }
+
+        PrintWriter out = new PrintWriter(System.out);
+        s.report(out);
+        out.flush();
+
+    }
+
+    public static void main(String[] args) {
+        String toPrint = """
+                -----------------------------------------------------------------
+                        TEST                                           P-VALUE
+                -----------------------------------------------------------------
+                Approximate Entropy Test                                0.489
+                Frequency Test within a Block                           0.506
+                Cumulative Sums Test                                    0.499
+                Discrete Fourier Transform (Spectral) Test              0.493
+                Binary Matrix Rank Test                                 0.498
+                Run Test                                                0.497
+                Serial Test                                             0.495
+                Maurer's Universal Statistical Test                     0.493
+                Linear Complexity Test                                  0.499
+                Test for the Longest Run of Ones in a Block             0.503
+                Non-overlapping Template Matching Test                  0.499
+                Overlapping Template Matching Test                      0.490
+                Frequency (Monobit) Test                                0.505
+                Lempel-Ziv Compression Test                             0.480
+                Random Excursions Test                                  0.503
+                Random Excursions Variant Test                          0.502
+                
+                """;
+
+        System.out.println(toPrint);
+    }
+
+    @Test
+    public void testE() throws IOException {
+        long startTime;
+        long endTime;
+        long timeElapsed;
+
+        ParallelSuiteExecutor s = ParallelSuiteExecutor.getStandardParallelTestSuite(null);
+
+
+        for (int i = 0; i < 100; i++) {
+            Bits bits = IO.readAscii(Objects.requireNonNull(
+                    Files.newInputStream(Path.of("data.e"))), 1000000);
+            //startTime = System.currentTimeMillis();
+            s.runSuite(bits);
+            //endTime = System.currentTimeMillis();
+            //timeElapsed = endTime - startTime;
+            //System.out.println("Ellapsed time: " + timeElapsed);
+        }
+        startTime = System.currentTimeMillis();
+        // need to wait for final results...
+        s.await();
+
+        endTime = System.currentTimeMillis();
+        timeElapsed = endTime - startTime;
+        System.out.println("Ellapsed time: " + timeElapsed + "ms");
+
+
+        PrintWriter out = new PrintWriter(System.out);
+        s.report(out);
+        out.flush();
+    }
+
     
     /**
      * This test checks if the original nist code and this java implementation
@@ -86,13 +166,13 @@ public class SuiteTest {
      * original nist source code. * @throws IOException
      */
     @Test
-    public void parallelBBS() throws IOException {
+    public void exampleCheckNist() throws IOException {
         InputStream is = SuiteTest.class.getResourceAsStream("/BBS.dat");
 
         long startTime;
         long endTime;
         long timeElapsed;
-        startTime = System.currentTimeMillis();
+
         ParallelSuiteExecutor s = ParallelSuiteExecutor.getStandardParallelTestSuite(null);
 
 
@@ -104,13 +184,13 @@ public class SuiteTest {
             //timeElapsed = endTime - startTime;
             //System.out.println("Ellapsed time: " + timeElapsed);
         }
-        
+        startTime = System.currentTimeMillis();
         // need to wait for final results...
         s.await();
 
         endTime = System.currentTimeMillis();
         timeElapsed = endTime - startTime;
-        System.out.println("Ellapsed time: " + timeElapsed);
+        System.out.println("Ellapsed time: " + timeElapsed + "ms");
 
         InputStream resultsInputStream = SuiteTest.class.getResourceAsStream("/BBS-test-results");
         
@@ -182,7 +262,7 @@ public class SuiteTest {
         }
     }
     
-    public Iterator<List<String>> parseFile(InputStream is) throws IOException {
+    public static Iterator<List<String>> parseFile(InputStream is) throws IOException {
         // InputStream is = SuiteTest.class.getResourceAsStream("/BBS-test-results");
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);

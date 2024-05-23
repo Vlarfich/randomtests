@@ -12,19 +12,23 @@ public class Main {
                 .desc("NIST STS")
                 .build();
 
-        Option diehard = Option.builder("dh")
-                .longOpt("diehard")
-                .desc("DIEHARD")
-                .build();
-
-        Option covariance = Option.builder("cov")
-                .longOpt("covariance")
-                .desc("тест \"ковариация\"")
-                .build();
-
         Option permutation = Option.builder("perm")
                 .longOpt("permutation ")
                 .desc("тесты перестановок")
+                .build();
+
+        Option indep = Option.builder("indep")
+                .longOpt("independence")
+                .desc("Проверка независимости для бинарных данных")
+                .build();
+
+        Option distr = Option.builder("distr")
+                .longOpt("distribution ")
+                .desc("Проверка одинаковой распределённости для бинарных данных")
+                .build();
+
+        Option all = Option.builder("all")
+                .desc("Выполнить все тесты")
                 .build();
 
         Option help = Option.builder("h")
@@ -59,9 +63,11 @@ public class Main {
         options.addOption(directory);
         options.addOption(out);
         options.addOption(nist);
-        options.addOption(diehard);
-        options.addOption(covariance);
         options.addOption(permutation);
+        options.addOption(indep);
+        options.addOption(distr);
+        options.addOption(all);
+
 
         HelpFormatter formatter = new HelpFormatter();
         CommandLineParser parser = new DefaultParser();
