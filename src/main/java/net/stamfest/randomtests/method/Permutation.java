@@ -3,6 +3,8 @@ package net.stamfest.randomtests.method;
 import net.stamfest.randomtests.bits.Bits;
 import net.stamfest.randomtests.utils.IO;
 import org.apache.commons.math3.distribution.ChiSquaredDistribution;
+import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
+import org.apache.commons.compress.compressors.bzip2.BZip2CompressorOutputStream;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,6 +15,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class Permutation {
+
+    private class S {
+
+    }
+
 
     public static int hammingWeight(int n) {
         int count = 0;
@@ -36,6 +43,9 @@ public class Permutation {
             for (int j = (int) (i * N / 10); j < (i + 1) * N / 10; j++) {
                 newSeq.add(integers.get(j));
             }
+            if(i == 0) {
+                compressionTest(newSeq);
+            }
             int[] runsRes = runsTest(newSeq);
             double derRes = maxCumDev(newSeq);
             int[] runsTrendRes = runsTestWithTrend(newSeq);
@@ -47,6 +57,25 @@ public class Permutation {
         }
 
 
+    }
+
+    public static int compressionTest(ArrayList<Integer> integers) {
+        ArrayList<Integer> newSeq = new ArrayList<>();
+        for (int i = 0; i < integers.size() - 8; i += 8) {
+            StringBuilder s = new StringBuilder();
+            for (int j = 0; j < 8; j++) {
+                s.append(integers.get(i + j).toString());
+            }
+            newSeq.add(Integer.parseInt(s.toString(), 2));
+        }
+        StringBuilder sb = new StringBuilder();
+        for(int i : newSeq) {
+            sb.append(i + ",");
+        }
+        sb.delete(sb.length() - 1, sb.length());
+        System.out.println(sb.toString());
+        BZip2CompressorOutputStream bzip2os = new BZip2CompressorOutputStream(os)
+        return 0;
     }
 
 
