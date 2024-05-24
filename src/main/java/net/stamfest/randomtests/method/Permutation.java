@@ -3,8 +3,6 @@ package net.stamfest.randomtests.method;
 import net.stamfest.randomtests.bits.Bits;
 import net.stamfest.randomtests.utils.IO;
 import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.apache.commons.math3.distribution.ChiSquaredDistribution;
-import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorOutputStream;
 
 import java.io.IOException;
@@ -79,13 +77,13 @@ public class Permutation {
 
     public static void main(String[] args) throws IOException {
         Bits bits = IO.readAscii(Objects.requireNonNull(
-                Files.newInputStream(Path.of("data.e"))), 10000);
+                Files.newInputStream(Path.of("data.e"))), 1000000);
 
         ArrayList<Integer> integers = new ArrayList<>();
         bits.forEach(integers::add);
         long N = integers.size();
 
-        S[][] Sij= new S[10][1001];
+        S[][] Sij = new S[10][1001];
 
         int compRes;
         int[] runsRes;
@@ -96,6 +94,7 @@ public class Permutation {
         S temp;
 
         int[] s0IDs = new int[10];
+        S[] defaultValues = new S[10];
 
         for (int i = 0; i < 10; i++) {
             ArrayList<Integer> newSeq = new ArrayList<>();
@@ -115,7 +114,9 @@ public class Permutation {
             Sij[i][0] = temp;
             s0IDs[i] = temp.id;
 
-            for(int j = 1; j <= 1000; j++) {
+            defaultValues[i] = temp;
+
+            for (int j = 1; j <= 1000; j++) {
                 fisherYates(newSeq);
                 compRes = compressionTest(newSeq);
                 runsRes = runsTest(newSeq);
@@ -130,22 +131,139 @@ public class Permutation {
             }
         }
 
-        for(int i = 0; i < s0IDs.length; i++) {
-            System.out.println(s0IDs[i]);
-        }
-
         int[][] R = new int[10][10];
 
-        for(int i = 0; i < 10; i++) {
+        Comparator[] comparators = createComparators();
+
+        int s0index = 0;
+
+        for (int i = 0; i < 10; i++) {
 
             ArrayList<S> Si = new ArrayList<>(List.of(Arrays.copyOf(Sij[i], 1001)));
-            System.out.println(Si.get(0).toString());
-            System.out.println(Si.get(Si.size() - 1).toString());
+            for (int j = 0; j < comparators.length; j++) {
+                Si.sort(comparators[j]);
+                s0index = Si.indexOf(defaultValues[i]);
+
+                for (int k = 0; k < Si.size(); k++) {
+                    if (comparators[j].compare(Si.get(k), defaultValues[i]) == 0) {
+                        s0index = Math.min(Math.abs(500 - Si.indexOf(Si.get(k))), Math.abs(500 - Si.indexOf(s0index)));
+                    }
+                }
+
+                R[i][j] = s0index;
+            }
         }
 
+        int otklonInrow = 0;
+        ArrayList<Integer> otklonIndexes = new ArrayList<>();
+
+        System.out.println("Матрица рангов оценок сжатия\t\t\tКоличество отклонений");
+        for (int i = 0; i < R.length; i++) {
+            otklonInrow = 0;
+            for (int j = 0; j < R[i].length; j++) {
+                System.out.print(R[i][j] + "\t");
+                if (R[i][j] < 50 || R[i][j] > 950) {
+                    otklonInrow++;
+                }
+            }
+
+            System.out.print("  |  " + otklonInrow);
+            if (otklonInrow >= 8) {
+                otklonIndexes.add(i);
+            }
+            System.out.println();
+        }
+
+        if (otklonIndexes.size() != 0) {
+            StringBuilder stroki = new StringBuilder();
+            otklonIndexes.forEach(x -> stroki.append(x).append(","));
+            System.out.println("Выборка НЕ прошла провекру!");
+            stroki.delete(stroki.length() - 1, stroki.length());
+            System.out.println("В строках " + stroki + " количество отклонений больше 8");
+        }
+        else {
+            System.out.println("Выборка прошла проверку!");
+        }
 
 
     }
+
+
+    public static Comparator[] createComparators() {
+        Comparator[] res = new Comparator[10];
+        res[0] = new Comparator<S>() {
+            @Override
+            public int compare(S o1, S o2) {
+                return o1.compRes - o2.compRes;
+            }
+        };
+
+        res[1] = new Comparator<S>() {
+            @Override
+            public int compare(S o1, S o2) {
+                return o1.colisRes1 - o2.colisRes1;
+            }
+        };
+
+        res[2] = new Comparator<S>() {
+            @Override
+            public int compare(S o1, S o2) {
+                return o1.colisRes2 - o2.colisRes2;
+            }
+        };
+
+        res[3] = new Comparator<S>() {
+            @Override
+            public int compare(S o1, S o2) {
+                return o1.runsRes1 - o2.runsTrendRes1;
+            }
+        };
+
+        res[4] = new Comparator<S>() {
+            @Override
+            public int compare(S o1, S o2) {
+                return o1.runsRes2 - o2.runsRes2;
+            }
+        };
+
+        res[5] = new Comparator<S>() {
+            @Override
+            public int compare(S o1, S o2) {
+                return Double.compare(o1.derRes, o2.derRes);
+            }
+        };
+
+        res[6] = new Comparator<S>() {
+            @Override
+            public int compare(S o1, S o2) {
+                return o1.runsTrendRes1 - o2.runsTrendRes1;
+            }
+        };
+
+        res[7] = new Comparator<S>() {
+            @Override
+            public int compare(S o1, S o2) {
+                return o1.runsTrendRes2 - o2.runsTrendRes2;
+            }
+        };
+
+        res[8] = new Comparator<S>() {
+            @Override
+            public int compare(S o1, S o2) {
+                return o1.runsTrendRes3 - o2.runsTrendRes3;
+            }
+        };
+
+        res[9] = new Comparator<S>() {
+            @Override
+            public int compare(S o1, S o2) {
+                return Double.compare(o1.covRes, o2.covRes);
+            }
+        };
+
+        return res;
+    }
+
 
     public static void fisherYates(ArrayList<Integer> array) {
         Random rand = new Random();
@@ -189,183 +307,183 @@ public class Permutation {
     }
 
 
-        public static int[] runsTest (ArrayList < Integer > integers) {
-            double median = 0.5;
-            ArrayList<Integer> newSeq = new ArrayList<>();
-            for (int i : integers) {
-                if (i == 0) {
-                    newSeq.add(-1);
-                } else {
-                    newSeq.add(1);
-                }
-            }
-
-            return new int[]{getLongestSeriesOfInt(newSeq, 1), getLongestSeriesOfInt(newSeq, -1)};
-        }
-
-        public static int getLongestSeriesOfInt (ArrayList < Integer > list,int el){
-            int currentSeries = 0;
-            int longestSeries = 0;
-
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i) == el) {
-                    currentSeries++;
-                    if (currentSeries > longestSeries) {
-                        longestSeries = currentSeries;
-                    }
-                } else {
-                    currentSeries = 0;
-                }
-            }
-
-            return longestSeries;
-        }
-
-        public static double maxCumDev (ArrayList < Integer > integers) {
-            double m = 0;
-            for (int x : integers) {
-                m += x;
-            }
-            m /= integers.size();
-
-            ArrayList<Double> DI = new ArrayList<>();
-            for (int i = 0; i < integers.size(); i++) {
-                double d = 0;
-                for (int j = 0; j < i; j++) {
-                    d += integers.get(j) - i * m;
-                }
-                DI.add(Math.abs(d));
-            }
-            return DI.stream().mapToDouble(Double::doubleValue).max().orElse(DI.get(0));
-        }
-
-        public static int[] runsTestWithTrend (ArrayList < Integer > integers) {
-            ArrayList<Integer> newSeq = new ArrayList<>();
-            int si = 0;
-            int si1 = 0;
-            int add = 0;
-            for (int i = 0; i < integers.size() - 1; i++) {
-                si = integers.get(i);
-                si1 = integers.get(i + 1);
-                if (si > si1) {
-                    add = -1;
-                } else if (si < si1) {
-                    add = 1;
-                } else {
-                    add = 0;
-                }
-                newSeq.add(add);
-            }
-            removeLeadingZeros(newSeq);
-            int C0 = (int) integers.stream().filter(x -> x == 0).count();
-            int C1 = integers.size() - C0;
-            int CX = Math.max(C0, C1);
-            return new int[]{countSeries(newSeq), calculateMaxSeriesLength(newSeq), CX};
-        }
-
-        public static void removeLeadingZeros (List < Integer > list) {
-            while (!list.isEmpty() && list.get(0) == 0) {
-                list.remove(0);
+    public static int[] runsTest(ArrayList<Integer> integers) {
+        double median = 0.5;
+        ArrayList<Integer> newSeq = new ArrayList<>();
+        for (int i : integers) {
+            if (i == 0) {
+                newSeq.add(-1);
+            } else {
+                newSeq.add(1);
             }
         }
 
-        public static int countSeries (List < Integer > list) {
-            int seriesCount = 0;
-            boolean inSeries = false;
-
-            for (int num : list) {
-                if (num == 1 && !inSeries) {
-                    seriesCount++;
-                    inSeries = true;
-                } else if (num == -1) {
-                    inSeries = false;
-                } else if (inSeries) {
-                    seriesCount++;
-                }
-            }
-
-            return seriesCount;
-        }
-
-        public static int calculateMaxSeriesLength (List < Integer > list) {
-            int maxLength = 0;
-            int currentLength = 0;
-            boolean inSeries = false;
-
-            for (int num : list) {
-                if (num == 1 && !inSeries) {
-                    currentLength++;
-                    inSeries = true;
-                } else if (num == -1) {
-                    inSeries = false;
-                    maxLength = Math.max(maxLength, currentLength);
-                    currentLength = 0;
-                } else if (inSeries) {
-                    currentLength++;
-                }
-            }
-
-            maxLength = Math.max(maxLength, currentLength);
-
-            return maxLength;
-        }
-
-
-        public static double covarianceTest (ArrayList < Integer > integers) {
-            double m = 0;
-            for (int x : integers) {
-                m += x;
-            }
-            m /= integers.size();
-
-            double res = 0;
-            for (int i = 0; i < integers.size() - 1; i++) {
-                res += (integers.get(i) - m) * (integers.get(i + 1) - m);
-            }
-            res /= integers.size() - 1;
-            return res;
-        }
-
-        public static int[] collisionsTest (ArrayList < Integer > integers) {
-            ArrayList<Integer> newSeq = new ArrayList<>();
-            for (int i = 0; i < integers.size() - 8; i += 8) {
-                StringBuilder s = new StringBuilder();
-                for (int j = 0; j < 8; j++) {
-                    s.append(integers.get(i + j).toString());
-                }
-                newSeq.add(Integer.parseInt(s.toString(), 2));
-            }
-
-            ArrayList<Integer> C = new ArrayList<>();
-            int p = 0;
-            int i = -1;
-            while (p < newSeq.size()) {
-                i = findFirstRepeatingIndex(newSeq.subList(p, newSeq.size()));
-                if (i == -1)
-                    break;
-                C.add(i);
-                p = p + i + 1;
-            }
-
-            int max = C.stream().mapToInt(Integer::intValue).max().orElse(0);
-            int min = C.stream().mapToInt(Integer::intValue).min().orElse(0);
-            return new int[]{min, max};
-        }
-
-        public static int findFirstRepeatingIndex (List < Integer > sequence) {
-            HashMap<Integer, Integer> observationCount = new HashMap<>();
-
-            for (int i = 0; i < sequence.size(); i++) {
-                int observation = sequence.get(i);
-
-                if (observationCount.containsKey(observation)) {
-                    return i - observationCount.get(observation) + 1;
-                } else {
-                    observationCount.put(observation, i);
-                }
-            }
-
-            return -1;
-        }
-
+        return new int[]{getLongestSeriesOfInt(newSeq, 1), getLongestSeriesOfInt(newSeq, -1)};
     }
+
+    public static int getLongestSeriesOfInt(ArrayList<Integer> list, int el) {
+        int currentSeries = 0;
+        int longestSeries = 0;
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) == el) {
+                currentSeries++;
+                if (currentSeries > longestSeries) {
+                    longestSeries = currentSeries;
+                }
+            } else {
+                currentSeries = 0;
+            }
+        }
+
+        return longestSeries;
+    }
+
+    public static double maxCumDev(ArrayList<Integer> integers) {
+        double m = 0;
+        for (int x : integers) {
+            m += x;
+        }
+        m /= integers.size();
+
+        ArrayList<Double> DI = new ArrayList<>();
+        for (int i = 0; i < integers.size(); i++) {
+            double d = 0;
+            for (int j = 0; j < i; j++) {
+                d += integers.get(j) - i * m;
+            }
+            DI.add(Math.abs(d));
+        }
+        return DI.stream().mapToDouble(Double::doubleValue).max().orElse(DI.get(0));
+    }
+
+    public static int[] runsTestWithTrend(ArrayList<Integer> integers) {
+        ArrayList<Integer> newSeq = new ArrayList<>();
+        int si = 0;
+        int si1 = 0;
+        int add = 0;
+        for (int i = 0; i < integers.size() - 1; i++) {
+            si = integers.get(i);
+            si1 = integers.get(i + 1);
+            if (si > si1) {
+                add = -1;
+            } else if (si < si1) {
+                add = 1;
+            } else {
+                add = 0;
+            }
+            newSeq.add(add);
+        }
+        removeLeadingZeros(newSeq);
+        int C0 = (int) integers.stream().filter(x -> x == 0).count();
+        int C1 = integers.size() - C0;
+        int CX = Math.max(C0, C1);
+        return new int[]{countSeries(newSeq), calculateMaxSeriesLength(newSeq), CX};
+    }
+
+    public static void removeLeadingZeros(List<Integer> list) {
+        while (!list.isEmpty() && list.get(0) == 0) {
+            list.remove(0);
+        }
+    }
+
+    public static int countSeries(List<Integer> list) {
+        int seriesCount = 0;
+        boolean inSeries = false;
+
+        for (int num : list) {
+            if (num == 1 && !inSeries) {
+                seriesCount++;
+                inSeries = true;
+            } else if (num == -1) {
+                inSeries = false;
+            } else if (inSeries) {
+                seriesCount++;
+            }
+        }
+
+        return seriesCount;
+    }
+
+    public static int calculateMaxSeriesLength(List<Integer> list) {
+        int maxLength = 0;
+        int currentLength = 0;
+        boolean inSeries = false;
+
+        for (int num : list) {
+            if (num == 1 && !inSeries) {
+                currentLength++;
+                inSeries = true;
+            } else if (num == -1) {
+                inSeries = false;
+                maxLength = Math.max(maxLength, currentLength);
+                currentLength = 0;
+            } else if (inSeries) {
+                currentLength++;
+            }
+        }
+
+        maxLength = Math.max(maxLength, currentLength);
+
+        return maxLength;
+    }
+
+
+    public static double covarianceTest(ArrayList<Integer> integers) {
+        double m = 0;
+        for (int x : integers) {
+            m += x;
+        }
+        m /= integers.size();
+
+        double res = 0;
+        for (int i = 0; i < integers.size() - 1; i++) {
+            res += (integers.get(i) - m) * (integers.get(i + 1) - m);
+        }
+        res /= integers.size() - 1;
+        return res;
+    }
+
+    public static int[] collisionsTest(ArrayList<Integer> integers) {
+        ArrayList<Integer> newSeq = new ArrayList<>();
+        for (int i = 0; i < integers.size() - 8; i += 8) {
+            StringBuilder s = new StringBuilder();
+            for (int j = 0; j < 8; j++) {
+                s.append(integers.get(i + j).toString());
+            }
+            newSeq.add(Integer.parseInt(s.toString(), 2));
+        }
+
+        ArrayList<Integer> C = new ArrayList<>();
+        int p = 0;
+        int i = -1;
+        while (p < newSeq.size()) {
+            i = findFirstRepeatingIndex(newSeq.subList(p, newSeq.size()));
+            if (i == -1)
+                break;
+            C.add(i);
+            p = p + i + 1;
+        }
+
+        int max = C.stream().mapToInt(Integer::intValue).max().orElse(0);
+        int min = C.stream().mapToInt(Integer::intValue).min().orElse(0);
+        return new int[]{min, max};
+    }
+
+    public static int findFirstRepeatingIndex(List<Integer> sequence) {
+        HashMap<Integer, Integer> observationCount = new HashMap<>();
+
+        for (int i = 0; i < sequence.size(); i++) {
+            int observation = sequence.get(i);
+
+            if (observationCount.containsKey(observation)) {
+                return i - observationCount.get(observation) + 1;
+            } else {
+                observationCount.put(observation, i);
+            }
+        }
+
+        return -1;
+    }
+
+}
