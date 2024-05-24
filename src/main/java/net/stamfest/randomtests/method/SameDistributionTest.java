@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class SameDistributionTest {
-    public static boolean runSameDistributionTest(Bits sequenceInBinaryRepresentation) {
+    public static String runSameDistributionTest(Bits sequenceInBinaryRepresentation) {
         boolean sequencePassedTheTest = true;
         double chiSquaredValueTheoretical = 0;
         double chi2ValueExperimental = 0;
@@ -44,17 +44,22 @@ public class SameDistributionTest {
         if(chi2ValueExperimental > chiSquaredValueTheoretical)
             sequencePassedTheTest = false;
 
+        StringBuilder result = new StringBuilder();
+
         if(sequencePassedTheTest) {
-            System.out.println("Выборка прошла проверку на одинаковую распределённость");
+            result.append("YES!\n");
+            result.append("Выборка прошла проверку на одинаковую распределённость\n");
         }
         else {
-            System.out.println("Выборка НЕ прошла проверку на одинаковую распределённость");
+            result.append("NO!\n");
+            result.append("Выборка НЕ прошла проверку на одинаковую распределённость\n");
         }
-        System.out.println("ХИ квадрат = " + chi2ValueExperimental + ", пороговое значение = " + chiSquaredValueTheoretical);
+        result.append("ХИ квадрат = ").append(chi2ValueExperimental)
+                .append(", пороговое значение = ").append(chiSquaredValueTheoretical).append("\n");
 
         double pValue = 1 - chiSquaredDistribution.cumulativeProbability(chi2ValueExperimental);
-        System.out.println("P-value = " + pValue);
-        return sequencePassedTheTest;
+        result.append("P-value = ").append(pValue).append("\n");
+        return result.toString();
     }
 
     public static int hammingWeight(int n) {

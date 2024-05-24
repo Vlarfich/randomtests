@@ -10,7 +10,7 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class Independence {
-    public static boolean run(Bits bits) {
+    public static String run(Bits bits) {
 
         boolean passed = true;
         double chiSquaredValue = 0;
@@ -79,20 +79,25 @@ public class Independence {
             }
         }
 
+        StringBuilder result = new StringBuilder();
+
         if(passed) {
-            System.out.println("Выборка прошла проверку на независимость");
+            result.append("YES!\n");
+            result.append("Выборка прошла проверку на независимость\n");
         }
         else {
-            System.out.println("Выборка НЕ прошла проверку на независимость");
+            result.append("NO!\n");
+            result.append("Выборка НЕ прошла проверку на независимость\n");
         }
-        System.out.println("ХИ квадрат = " + chi2 + ", пороговое значение = " + chiSquaredValue);
+        result.append("ХИ квадрат = ").append(chi2).append(", пороговое значение = ")
+                .append(chiSquaredValue).append("\n");
 
-        System.out.println("  k            P-values:");
+        result.append("  k            P-values:\n");
         for(int i = 0; i < pvalues.size(); i++) {
-            System.out.println("k = " + (i +2) + "\t: " +pvalues.get(i));
+            result.append("k = ").append(i + 2).append("\t: ").append(pvalues.get(i)).append("\n");
         }
 
-        return passed;
+        return result.toString();
     }
 
     public static int hammingWeight(int n) {

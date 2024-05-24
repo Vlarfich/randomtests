@@ -75,10 +75,7 @@ public class Permutation {
         return count;
     }
 
-    public static void main(String[] args) throws IOException {
-        Bits bits = IO.readAscii(Objects.requireNonNull(
-                Files.newInputStream(Path.of("data.e"))), 1000000);
-
+    public static String permutationTest(Bits bits) {
         ArrayList<Integer> integers = new ArrayList<>();
         bits.forEach(integers::add);
         long N = integers.size();
@@ -157,34 +154,38 @@ public class Permutation {
         int otklonInrow = 0;
         ArrayList<Integer> otklonIndexes = new ArrayList<>();
 
-        System.out.println("Матрица рангов оценок сжатия\t\t\tКоличество отклонений");
+        StringBuilder result = new StringBuilder();
+        result.append("Матрица рангов оценок \t\t\t\tКоличество отклонений\n");
         for (int i = 0; i < R.length; i++) {
             otklonInrow = 0;
             for (int j = 0; j < R[i].length; j++) {
-                System.out.print(R[i][j] + "\t");
+                result.append(R[i][j]).append("\t");
                 if (R[i][j] < 50 || R[i][j] > 950) {
                     otklonInrow++;
                 }
             }
 
-            System.out.print("  |  " + otklonInrow);
+            result.append("  |  ").append(otklonInrow);
             if (otklonInrow >= 8) {
                 otklonIndexes.add(i);
             }
-            System.out.println();
+            result.append("\n");
         }
 
-        if (otklonIndexes.size() != 0) {
+        if (!otklonIndexes.isEmpty()) {
             StringBuilder stroki = new StringBuilder();
             otklonIndexes.forEach(x -> stroki.append(x).append(","));
-            System.out.println("Выборка НЕ прошла провекру!");
+            result.append("NO!\n");
+            result.append("Выборка НЕ прошла провекру!\n");
             stroki.delete(stroki.length() - 1, stroki.length());
-            System.out.println("В строках " + stroki + " количество отклонений больше 8");
+            result.append("В строках ").append(stroki).append(" количество отклонений больше 8");
         }
         else {
-            System.out.println("Выборка прошла проверку!");
+            result.append("YES!\n");
+            result.append("Выборка прошла проверку!");
         }
 
+        return result.toString();
 
     }
 
